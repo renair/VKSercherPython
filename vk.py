@@ -4,15 +4,21 @@ import json
 class VKApi:
 
 	def __init__(self):
-		print("tested")
+		a = ""
 
 	def get_friends(self, user_id):
 		data = net.urlopen("https://api.vk.com/method/friends.get?user_id="+str(user_id)).read().decode('utf-8')
 		data = json.loads(data)
 		try:
-			print(str(user_id)+":"+str(len(data["response"])))
 			return data["response"]
 		except Exception:
-			print("https://api.vk.com/method/friends.get?user_id="+str(user_id))
-			print(str(user_id)+":"+str(data))
+			return []
+	
+	def get_user(self, user_list):
+		list = ",".join(str(u) for u in user_list)
+		data = net.urlopen("https://api.vk.com/method/users.get?user_ids="+list+"&v=5.52").read().decode('utf-8')
+		data = json.loads(data)
+		try:
+			return data["response"]
+		except Exception:
 			return []

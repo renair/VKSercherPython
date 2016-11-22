@@ -1,36 +1,33 @@
-import vk as VKApi
+import vk
 import graph
 import pickle
+import VKFinder
 
-vk = VKApi.VKApi()
-g = graph.Graph()
-try:
-	for i in range(1,500):
-		a = vk.get_friends(i)
-		for id in a:
-			g.add(i,id)
-			
-except KeyboardInterrupt:
-	vk_dump = g.toJson()
-	fi = open('dump.js','w+')
-	fi.write(vk_dump)
-	fi.flush()
-	fi.close()
-	print("Keyboard Interruption!\nFile saved")
-	exit(0)
+g = VKFinder.Finder()	#graph.Graph()
+#users = g.serch(30851865,20056802) # 4-th friend with Castle.... mimimimi
+#users = g.serch(30851865,35794528) #Nikita
+#g.serch(30851865,8627177) #Ihor friend
+vk = vk.VKApi()
+#users = g.serch(30851865, 6347171)
+#users = g.serch(173852943,9774099) #Taya - Yuara Gromovoi
+#users = g.serch(30851865, 648509)
 
-except Exception:
-	vk_dump = g.toJson()
-	fi = open('dump.js','w+')
-	fi.write(vk_dump)
-	fi.flush()
-	fi.close()
-	exit(1)
+f = open('results.txt','w+')
 
-print("parsed")
-vk_dump = g.toJson()
-fi = open('wwwwwwwwwwwwwww.js','w+')
-fi.write(vk_dump)
-fi.flush()
-fi.close()
-g.toPickle("oooooooooooooooooooooooooooo.pic")
+#for i in range(30851866,30855865):
+#	users = g.serch(30851865,i)
+#	if len(users):
+#		users = vk.get_user(users)
+#		for user in users:
+#       		f.write(user['first_name']+" "+user['last_name']+" -> ")
+#		f.write("\n")
+#		f.flush()
+
+users = g.serch(30851865,283505314)
+#print(users)
+#json = vk.get_user(users)
+users = vk.get_user(users)
+#users.reverse()
+for user in users:
+	print(user['first_name']+" "+user['last_name'],end=" -> ")
+#print("\n"+str(json))
